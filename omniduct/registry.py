@@ -251,6 +251,7 @@ class DuctRegistry(object):
 
         for duct_config in config:
             names = duct_config.pop('name')
+            print(names)
             protocol = duct_config.pop('protocol')
             register_magics = duct_config.pop('register_magics', True)
             try:
