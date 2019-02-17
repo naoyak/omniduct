@@ -296,13 +296,14 @@ class DuctRegistry(object):
             depth = max_consistent_depth(config)
             print('depth: ', depth)
 
-            if depth == 2:
-                for name, kwargs in config.items():
-                    kwargs = kwargs.copy()
-                    kwargs['name'] = name
-                    print('args: ', kwargs)
-                    yield kwargs
-            elif depth == 3:
+            # if depth == 2:
+            #     for name, kwargs in config.items():
+            #         kwargs = kwargs.copy()
+            #         kwargs['name'] = name
+            #         print('args: ', kwargs)
+            #         yield kwargs
+            # elif depth == 3:
+            if True:
                 for subsection in config.values():
                     for name, kwargs in subsection.items():
                         kwargs = kwargs.copy()
