@@ -54,6 +54,7 @@ class DuctRegistry(object):
         self._registry = {}
 
         if config:
+            print(config)
             self.register_from_config(config)
 
     def __repr__(self):
@@ -248,6 +249,7 @@ class DuctRegistry(object):
                 of the above described formats.
         """
         config = self._process_config(config)
+        print('processed: ', config)
 
         for duct_config in config:
             names = duct_config.pop('name')
@@ -267,12 +269,14 @@ class DuctRegistry(object):
         format into a generator of dictionaries of keyword arguments.
         """
         # Extract configuration from a file if necessary
+        print(config)
         if isinstance(config, six.string_types):
             if '\n' in config:
                 config = yaml.load(config)
             else:
                 with open(config) as f:
                     config = yaml.load(f.read())
+                    print('YAML parsed: ', config)
 
         if not isinstance(config, (list, dict)):
             raise ValueError("Invalid configuration detected.")
@@ -288,17 +292,20 @@ class DuctRegistry(object):
                 return depth
 
             depth = max_consistent_depth(config)
+            print('depth: ', depth)
 
             if depth == 2:
                 for name, kwargs in config.items():
                     kwargs = kwargs.copy()
                     kwargs['name'] = name
+                    print(kwargs)
                     yield kwargs
             elif depth == 3:
                 for subsection in config.values():
                     for name, kwargs in subsection.items():
                         kwargs = kwargs.copy()
                         kwargs['name'] = name
+                        print(kwargs)
                         yield kwargs
             else:
                 raise ValueError("Invalid configuration detected.")
